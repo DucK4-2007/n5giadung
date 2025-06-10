@@ -1,0 +1,45 @@
+{% extends "layout.html" %} {% block content %}
+<h2>Giỏ hàng của bạn</h2>
+{% if cart_items %}
+<form method="post" action="{{ url_for('update_cart') }}">
+  <table class="table">
+    <tr>
+      <th>Tên</th>
+      <th>Giá</th>
+      <th>Số lượng</th>
+      <th>Tạm tính</th>
+      <th>Hành động</th>
+    </tr>
+    {% for item in cart_items %}
+    <tr>
+      <td>{{ item.product.name }}</td>
+      <td>{{ "{:,.0f}".format(item.product.price) }} đ</td>
+      <td>
+        <input
+          type="number"
+          min="1"
+          name="qty_{{ item.product.id }}"
+          value="{{ item.qty }}"
+        />
+      </td>
+      <td>{{ "{:,.0f}".format(item.subtotal) }} đ</td>
+      <td>
+        <a
+          href="{{ url_for('remove_from_cart', product_id=item.product.id) }}"
+          class="btn btn-sm btn-danger"
+          >Xóa</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td colspan="3" class="text-end"><b>Tổng cộng:</b></td>
+      <td colspan="2"><b>{{ "{:,.0f}".format(total) }} đ</b></td>
+    </tr>
+  </table>
+  <button type="submit" class="btn btn-primary">Cập nhật giỏ hàng</button>
+  <a href="{{ url_for('checkout') }}" class="btn btn-success">Thanh toán</a>
+</form>
+{% else %}
+<p>Bạn chưa có sản phẩm nào trong giỏ hàng!</p>
+{% endif %} {% endblock %}

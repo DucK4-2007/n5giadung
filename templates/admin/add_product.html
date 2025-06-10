@@ -1,0 +1,38 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Thêm sản phẩm mới</h2>
+  <form method="post" enctype="multipart/form-data" class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">Tên sản phẩm</label>
+      <input type="text" name="name" class="form-control" required />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Giá (đ)</label>
+      <input type="number" name="price" class="form-control" required />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Số lượng trong kho</label>
+      <input type="number" name="stock" class="form-control" required />
+    </div>
+    <div class="col-12">
+      <label class="form-label">Ảnh sản phẩm</label>
+      <input type="file" name="image" class="form-control" accept="image/*" />
+    </div>
+    <div class="col-12">
+      <label class="form-label fw-bold">Nội dung giới thiệu chi tiết</label>
+      <textarea name="feature_html" class="form-control" rows="8">
+{{ request.form.feature_html or '' }}</textarea
+      >
+      <div class="form-text">
+        Bạn có thể dùng định dạng HTML, chèn ảnh, tiêu đề, danh sách...
+      </div>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+      <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary"
+        >Quay lại</a
+      >
+    </div>
+  </form>
+</div>
+{% endblock %}

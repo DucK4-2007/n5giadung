@@ -1,0 +1,31 @@
+{% extends "layout.html" %} {% block content %}
+<h2>Xác nhận đặt hàng</h2>
+{% if cart_items %}
+<table class="table">
+  <tr>
+    <th>Tên</th>
+    <th>Số lượng</th>
+    <th>Tạm tính</th>
+  </tr>
+  {% for item in cart_items %}
+  <tr>
+    <td>{{ item.product.name }}</td>
+    <td>{{ item.qty }}</td>
+    <td>{{ "{:,.0f}".format(item.subtotal) }} đ</td>
+  </tr>
+  {% endfor %}
+  <tr>
+    <td colspan="2" class="text-end"><b>Tổng cộng:</b></td>
+    <td><b>{{ "{:,.0f}".format(total) }} đ</b></td>
+  </tr>
+</table>
+<form method="post">
+  <div class="mb-3">
+    <label for="address" class="form-label">Địa chỉ nhận hàng</label>
+    <textarea name="address" class="form-control" required></textarea>
+  </div>
+  <button type="submit" class="btn btn-success">Xác nhận đặt hàng</button>
+</form>
+{% else %}
+<p>Giỏ hàng trống!</p>
+{% endif %} {% endblock %}

@@ -1,0 +1,66 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Chỉnh sửa sản phẩm</h2>
+  <form method="post" enctype="multipart/form-data" class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">Tên sản phẩm</label>
+      <input
+        type="text"
+        name="name"
+        class="form-control"
+        value="{{ product.name }}"
+        required
+      />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Giá (đ)</label>
+      <input
+        type="number"
+        name="price"
+        class="form-control"
+        value="{{ product.price }}"
+        required
+      />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Số lượng trong kho</label>
+      <input
+        type="number"
+        name="stock"
+        class="form-control"
+        value="{{ product.stock }}"
+        required
+      />
+    </div>
+    <div class="col-12">
+      <label class="form-label">Ảnh sản phẩm</label>
+      <input type="file" name="image" class="form-control" accept="image/*" />
+      {% if product.image %}
+      <div class="mt-2">
+        <img
+          src="{{ product.image }}"
+          alt="Ảnh sản phẩm hiện tại"
+          style="max-height: 120px"
+        />
+      </div>
+      <input type="hidden" name="old_image" value="{{ product.image }}" />
+      {% endif %}
+    </div>
+    <div class="col-12">
+      <label class="form-label fw-bold">Nội dung giới thiệu chi tiết</label>
+      <textarea name="feature_html" class="form-control" rows="8">
+{{ product.feature_html or '' }}</textarea
+      >
+      <div class="form-text">
+        Bạn có thể dùng định dạng HTML, chèn ảnh, tiêu đề, danh sách...
+      </div>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+      <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary"
+        >Quay lại</a
+      >
+    </div>
+  </form>
+</div>
+{% endblock %}

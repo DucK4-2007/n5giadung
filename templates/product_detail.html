@@ -1,0 +1,56 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <!-- Cột ảnh sản phẩm -->
+    <div class="col-md-5 text-center mb-4 mb-md-0">
+      <img
+        src="{{ product.image }}"
+        alt="{{ product.name }}"
+        class="img-fluid rounded shadow"
+        style="max-height: 400px"
+      />
+    </div>
+    <!-- Cột thông tin sản phẩm -->
+    <div class="col-md-7">
+      <h2 class="fw-bold text-dark mb-3" style="font-size: 2.2rem">
+        {{ product.name }}
+      </h2>
+      <div class="mb-3">
+        <span class="fw-bold text-danger" style="font-size: 1.7rem">
+          {{ "{:,.0f}".format(product.price) }} đ
+        </span>
+      </div>
+      <div class="mb-3">
+        <span class="me-3">
+          <b>Số lượng trong kho:</b> {{ product.stock }}
+        </span>
+        <span> <b>Đã bán:</b> {{ product.sales }} </span>
+      </div>
+      <div class="mb-4">
+        <a
+          href="{{ url_for('add_to_cart', product_id=product.id) }}"
+          class="btn btn-warning me-2"
+          >Thêm vào giỏ hàng</a
+        >
+        <a
+          href="{{ url_for('buy_product', product_id=product.id) }}"
+          class="btn btn-success me-2"
+          >Mua ngay</a
+        >
+        <a href="{{ url_for('products') }}" class="btn btn-secondary"
+          >Quay lại</a
+        >
+      </div>
+    </div>
+  </div>
+  <!-- Phần mô tả giới thiệu -->
+  <div class="row mt-5">
+    <div class="col-12">
+      <h4 class="fw-bold mb-3 text-primary">Nội dung giới thiệu chi tiết</h4>
+      <div class="product-feature-content border rounded p-3 bg-light">
+        {{ product.feature_html|safe }}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
